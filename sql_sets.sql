@@ -1,0 +1,53 @@
+CREATE DATABASE COMPANY_ABC;
+USE COMPANY_ABC;
+
+CREATE TABLE F_DEPT(
+	EMPID INT NOT NULL PRIMARY KEY,
+    NAME CHAR(225),
+    ROLE CHAR(225)
+);
+
+INSERT INTO F_DEPT
+	(EMPID,NAME,ROLE) VALUES
+    (1,'A','ENGINER'),
+    (2,'B','SALESMAN'),
+    (3,'C','MANAGER'),
+    (4,'D','SALESMAN'),
+    (5,'E','ENGINEER');
+    
+SELECT * FROM F_DEPT;
+
+CREATE TABLE s_DEPT(
+	EMPID INT NOT NULL PRIMARY KEY,
+    NAME CHAR(225),
+    ROLE CHAR(225)
+);
+
+INSERT INTO S_DEPT
+	(EMPID,NAME,ROLE) VALUES
+    (3,'C','MANAGER'),
+    (6,'F','MARKATING'),
+    (7,'G','SALESMAN');
+
+SELECT * FROM S_DEPT;
+
+
+-- List out all employrr in company 
+SELECT * FROM F_DEPT 
+UNION
+SELECT * FROM S_DEPT;
+
+
+-- List all the employee in qalll dept who work as salesman 
+SELECT * FROM F_DEPT WHERE ROLE='SALESMAN'
+UNION
+SELECT * FROM S_DEPT WHERE ROLE='SALESMAN';
+
+-- List all the employrr who work in all the department
+-- INNERJOIN
+SELECT F_DEPT.* FROM F_DEPT INNER JOIN S_DEPT USING(EMPID);
+
+-- List out all the rmployee working in dept1 but not in dept2
+-- MINUS
+SELECT F_DEPT.* FROM F_DEPT INNER JOIN S_DEPT USING(EMPID)
+WHERE S_DEPT.EMPID IS NULL;
